@@ -1,0 +1,93 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ============================================================
+    // 🛠️ دوال مساعدة
+    // ============================================================
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function userRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+
+    function isSuperAdmin() {
+      return isSignedIn() && userRole() == 'superAdmin';
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (userRole() == 'admin' || userRole() == 'superAdmin');
+    }
+
+    function isStaff() {
+      return isSignedIn() && userRole() in ['superAdmin', 'admin', 'captain'];
+    }
+
+    // ============================================================
+    // 👤 المستخدمون
+    // ============================================================
+    match /users/{uid} {
+      allow read: if isSignedIn() && (request.auth.uid == uid || isStaff());
+      allow write: if isSignedIn() && (request.auth.uid == uid || isAdmin());
+    }
+
+    // ============================================================
+    // 🔒 سجل الدفع (payment_transactions) — المشرف العام فقط
+    // ============================================================
+    match /payment_transactions/{txId} {
+      allow read: if isSuperAdmin();
+      allow write: if false;
+    }
+
+    // ============================================================
+    // 🔒 سجل التفعيلات (activation_logs) — المشرف العام فقط
+    // ============================================================
+    match /activation_logs/{logId} {
+      allow read: if isSuperAdmin();
+      allow write: if false;
+    }
+
+    // ============================================================
+    // 💳 طلبات الدفع المؤقتة (payment_orders)
+    // ============================================================
+    match /payment_orders/{orderId} {
+      allow read: if isSignedIn() && (
+        resource.data.userId == request.auth.uid || isSuperAdmin()
+      );
+      allow write: if false;
+    }
+
+    // ============================================================
+    // 🏋️ الكورسات
+    // ============================================================
+    match /courses/{courseId} {
+      allow read: if isSignedIn();
+      allow write: if isStaff();
+    }
+
+    // ============================================================
+    // 💪 التمارين
+    // ============================================================
+    match /exercises/{exId} {
+      allow read: if isSignedIn();
+      allow write: if isStaff();
+    }
+
+    // ============================================================
+    // ⚙️ إعدادات التطبيق (app_config)
+    // ============================================================
+    match /app_config/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ============================================================
+    // 🚫 منع أي وصول افتراضي (fail-safe)
+    // ============================================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

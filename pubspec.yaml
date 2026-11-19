@@ -1,0 +1,84 @@
+name: gym_course_manager
+description: Gym Course Manager with Firebase
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  webview_flutter: ^4.7.0
+  app_links: ^6.3.2
+  flutter_background_service: ^5.0.10
+  wakelock_plus: ^1.2.8
+  http: ^1.2.0
+  # Firebase
+  firebase_core: ^3.6.0
+  firebase_auth: ^5.3.1
+  cloud_firestore: ^5.4.4
+  firebase_storage: ^12.3.2
+  cloud_functions: ^5.1.0 # لاستدعاء دالة التحقق
+
+  # UI & Core
+  intl: ^0.20.2
+  google_fonts: ^6.2.1
+  cached_network_image: ^3.4.1
+  cupertino_icons: ^1.0.8
+
+  # Media
+  image_picker: ^1.1.2
+  video_player: ^2.9.2
+
+  # Files & PDF
+  pdf: ^3.11.1
+  printing: ^5.13.4
+  path_provider: ^2.1.4
+
+  # Storage & Utils
+  shared_preferences: ^2.3.2
+  uuid: ^4.5.1
+  flutter_launcher_icons: ^0.14.1
+
+  # Notifications (للمرحلة القادمة)
+  flutter_local_notifications: ^17.2.3
+  timezone: ^0.9.4
+  permission_handler: ^11.3.1
+
+  # Charts & Updates (للمرحلة القادمة)
+  fl_chart: ^0.69.0
+  package_info_plus: ^8.0.2
+  url_launcher: ^6.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  change_app_package_name: ^1.5.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/fonts/
+    - assets/images/
+    - assets/icons/
+    - assets/fonts/Cairo-Regular.ttf
+    - assets/fonts/Cairo-Bold.ttf  # اختياري
+# ============================================================
+# APP ICON CONFIGURATION
+# ============================================================
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/icon.png"
+  min_sdk_android: 21
+  
+  # ---------- Android Adaptive Icon ----------
+  adaptive_icon_background: "#F57C00"  # أو استخدم صورة: assets/icon/app_icon_background.png
+  adaptive_icon_foreground: "assets/icons/icon.png"
+  
+  # ---------- iOS ----------
+  remove_alpha_ios: true

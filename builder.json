@@ -1,0 +1,22 @@
+{
+  "project": "gym_course_manager",
+  "platform": "ios",
+  "github": {
+    "owner": "baroniqq",
+    "repo": "baroniqq"
+  },
+  "provider": "github",
+  "codemagic": {},
+  "bitrise": {},
+  "ios": {
+    "path": "ios",
+    "bundleId": "com.baronjnb.gymcourse"
+  },
+  "flutter": {
+    "version": "3.41.6",
+    "watch": {}
+  },
+  "reactNative": {},
+  "kmp": {},
+  "mobai": {}
+}
