@@ -56,14 +56,13 @@ class DefaultFirebaseOptions {
   // iOS - placeholder (أضف تطبيق iOS في Console لاحقًا للحصول على القيم)
   // ============================================================
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBT5Rz08fk9eAK5lhP45iSWsJiADCWLJdM',
-    appId: '1:92173656844:ios:0000000000000000000000',
+    apiKey: 'AIzaSyBWpDU5MZ_HQZjJLd22cnBTxf8eXLqUKh0',
+    appId: '1:92173656844:ios:2251f9177d347ffb789f29',
     messagingSenderId: '92173656844',
     projectId: 'archif-91c29',
     storageBucket: 'archif-91c29.firebasestorage.app',
-    iosBundleId: 'com.example.gymCourseManager',
+    iosBundleId: 'com.baronjnb.gymcourse',
   );
-
   // ============================================================
   // macOS - placeholder
   // ============================================================
